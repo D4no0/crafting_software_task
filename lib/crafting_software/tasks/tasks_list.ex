@@ -3,6 +3,8 @@ defmodule CraftingSoftware.Tasks.TasksList do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @type t :: %__MODULE__{}
+
   alias CraftingSoftware.Tasks.Task
 
   @primary_key false

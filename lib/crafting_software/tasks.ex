@@ -5,11 +5,22 @@ defmodule CraftingSoftware.Tasks do
   alias CraftingSoftware.Tasks.TasksList
   alias CraftingSoftware.GraphUtils
 
+  @doc """
+    Validates the input tasks using a changeset.
+  """
+  @spec validate_tasks(attrs :: map()) :: {:ok, TasksList.t()} | {:error, Ecto.Changeset.t()}
   def validate_tasks(attrs) do
     TasksList.changeset(%TasksList{}, attrs)
     |> Ecto.Changeset.apply_action(:validate)
   end
 
+  @doc """
+    Receives a TasksList structure and sorts the tasks.
+
+    To avoid leaking of ETS tables in random contexts this function creates a unique
+    Task for every call, the timeout parameter is responsible for the wait timeout.
+  """
+  @spec sort_tasks(data :: TasksList.t(), timeout :: integer()) :: TasksList.t()
   def sort_tasks(%TasksList{} = data, timeout \\ 5000) do
     tasks = data.tasks
 
