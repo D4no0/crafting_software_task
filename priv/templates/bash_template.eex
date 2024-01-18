@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+<%= for command <- @commands do %><%= command %>
+<% end %>
